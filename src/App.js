@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 
 const RAINBOW = ["#E04040", "#F08020", "#D4C020", "#40A040", "#4080D0", "#8040C0"];
 
+const CHECKOUT_LINKS = {
+  monthly: "https://www.queerolina.org/checkout/subscribe?cartToken=0NTikrmv4aGwBrnZFAxQWQWM0Mr3UIgIdJlzmBqA",
+  annual: "https://www.queerolina.org/checkout/subscribe?cartToken=wx8Ec1zDviCAGWoIQ21asdfMtoYq4UF6lUIHMTjN",
+};
+
 function SignalIcon({ size = 60, animated = false }) {
   const arcs = [
     { r: 0.28, stroke: RAINBOW[0] },
@@ -277,8 +282,8 @@ function SubscribeModal({ onClose }) {
 
             <div style={{ display: "flex", gap: 10, marginBottom: 28 }}>
               {[
-                { key: "monthly", label: "MONTHLY", price: "$8/mo" },
-                { key: "annual", label: "ANNUAL", price: "$72/yr", note: "SAVE 25%" },
+                { key: "monthly", label: "MONTHLY", price: "$4.99/mo" },
+                { key: "annual", label: "ANNUAL", price: "$50/yr", note: "SAVE 17%" },
               ].map(p => (
                 <div key={p.key} onClick={() => setPlan(p.key)} style={{
                   flex: 1, padding: "16px 12px",
@@ -297,22 +302,15 @@ function SubscribeModal({ onClose }) {
               ))}
             </div>
 
-            <input
-              type="email" placeholder="your@email.com"
-              value={email} onChange={e => setEmail(e.target.value)}
+            <button
+              onClick={() => window.open(CHECKOUT_LINKS[plan], "_blank")}
               style={{
-                width: "100%", background: "#080808", border: "0.5px solid #2a2a2a",
-                borderRadius: 4, padding: "13px 16px", fontSize: 13, color: "#fff",
-                marginBottom: 14, boxSizing: "border-box",
-                fontFamily: "'Barlow', sans-serif", outline: "none",
-              }}
-            />
-            <button onClick={() => { if (email) setSubmitted(true); }} style={{
-              width: "100%", background: "#fff", color: "#080808", border: "none",
-              padding: "14px", fontSize: 11, fontWeight: 600, letterSpacing: 2.5,
-              cursor: "pointer", borderRadius: 2, fontFamily: "'Barlow', sans-serif",
-            }}>GET STARTED</button>
-            <div style={{ fontSize: 10, color: "#333", textAlign: "center", marginTop: 14, letterSpacing: 1, fontFamily: "'Barlow', sans-serif" }}>
+                width: "100%", background: "#fff", color: "#080808", border: "none",
+                padding: "14px", fontSize: 11, fontWeight: 600, letterSpacing: 2.5,
+                cursor: "pointer", borderRadius: 2, fontFamily: "'Barlow', sans-serif",
+                marginBottom: 14,
+              }}>GET STARTED →</button>
+            <div style={{ fontSize: 10, color: "#333", textAlign: "center", letterSpacing: 1, fontFamily: "'Barlow', sans-serif" }}>
               Cancel anytime. Made by us, for us.
             </div>
           </>
